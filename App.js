@@ -22,9 +22,9 @@ export default App = () => {
         resizeMode="cover"
         style={styles.image}
       >
-        {/* <RegistrationScreen style={styles.regScreen} /> */}
+        <RegistrationScreen style={styles.regScreen} />
         {/* <LoginScreen/> */}
-        <PostsScreen/>
+        {/* <PostsScreen/> */}
       </ImageBackground>
     </>
   );
