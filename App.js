@@ -22,8 +22,8 @@ export default App = () => {
         resizeMode="cover"
         style={styles.image}
       >
-        <RegistrationScreen style={styles.regScreen} />
-        {/* <LoginScreen/> */}
+        {/* <RegistrationScreen style={styles.regScreen} /> */}
+        <LoginScreen/>
         {/* <PostsScreen/> */}
       </ImageBackground>
     </>
