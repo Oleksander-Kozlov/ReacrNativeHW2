@@ -1,37 +1,31 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   StyleSheet,
   Text,
   View,
-  KeyboardAvoidingView,
-  TextInput,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-  Keyboard,
+  
+Dimensions, 
   SafeAreaView,
   ScrollView,
   Image,
 } from "react-native";
-import SvgLogOut from "../components/SvgLogOut";
-import SvgToolbarGrid from "../components/SvgToolbarGrid";
-import SvgToolbarUser from "../components/SvgToolbarUser";
-import SvgBtnAddPlus from "../components/SvgBtnAddPlus";
+import { Feather } from "@expo/vector-icons";
+import MapView, { Marker } from "react-native-maps";
+import * as RootNavigation from "../midleware/RootNavigation.js";
+
+
 const PostsScreen = () => {
+  const logOut = () => {
+    RootNavigation.navigate("LoginScreen");
+  };
   return (
-    <SafeAreaView
-      style={styles.safeAreaView}
-    >
+    <SafeAreaView style={styles.safeAreaView}>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.userListContainer}>
-          <View style={styles.headerContainer}>
-            <Text style={styles.headerTitle}>Публікації</Text>
-            <SvgLogOut style={styles.svgLogOut} />
-          </View>
-          {/* <View Style={styles.postsContainer}> */}
           <View style={styles.singlePostContainer}>
             <Image
               style={styles.avatarImage}
-              source={require("../assets/img/BG.jpg")}
+              source={require("../assets/img/userAvatar.png")}
               resizeMode="cover"
             ></Image>
             <View style={styles.infoUserBlock}>
@@ -39,196 +33,96 @@ const PostsScreen = () => {
               <Text>email@example.com</Text>
             </View>
           </View>
-          <View style={styles.singlePostContainer}>
-            <Image
-              style={styles.avatarImage}
-              source={require("../assets/img/edvard.png")}
-              resizeMode="cover"
-            ></Image>
-            <View style={styles.infoUserBlock}>
-              <Text>Edvard Hill</Text>
-              <Text>Edvard@Edvard.com</Text>
-            </View>
-          </View>
-          <View style={styles.singlePostContainer}>
-            <Image
-              style={styles.avatarImage}
-              source={require("../assets/img/Letov1.png")}
-              resizeMode="cover"
-            ></Image>
-            <View style={styles.infoUserBlock}>
-              <Text style={styles.userName}>Egor Letov</Text>
-              <Text style={styles.userMail}>Letov@Letov.com</Text>
-            </View>
-          </View>
-          {/* <View style={styles.singlePostContainer}>
-              <Image
-                style={styles.avatarImage}
-                source={require("../assets/img/BG.jpg")}
-                resizeMode="cover"
-              ></Image>
-              <View style={styles.infoUserBlock}>
-                <Text>Natali Romanova</Text>
-                <Text>email@example.com</Text>
-              </View>
-            </View>
-            <View style={styles.singlePostContainer}>
-              <Image
-                style={styles.avatarImage}
-                source={require("../assets/img/edvard.png")}
-                resizeMode="cover"
-              ></Image>
-              <View style={styles.infoUserBlock}>
-                <Text>Edvard Hill</Text>
-                <Text>Edvard@Edvard.com</Text>
-              </View>
-            </View>
-            <View style={styles.singlePostContainer}>
-              <Image
-                style={styles.avatarImage}
-                source={require("../assets/img/Letov1.png")}
-                resizeMode="cover"
-              ></Image>
-              <View style={styles.infoUserBlock}>
-                <Text>Egor Letov</Text>
-                <Text>Letov@Letov.com</Text>
-              </View>
-            </View>
-            <View style={styles.singlePostContainer}>
-              <Image
-                style={styles.avatarImage}
-                source={require("../assets/img/BG.jpg")}
-                resizeMode="cover"
-              ></Image>
-              <View style={styles.infoUserBlock}>
-                <Text>Natali Romanova</Text>
-                <Text>email@example.com</Text>
-              </View>
-            </View>
-            <View style={styles.singlePostContainer}>
-              <Image
-                style={styles.avatarImage}
-                source={require("../assets/img/edvard.png")}
-                resizeMode="cover"
-              ></Image>
-              <View style={styles.infoUserBlock}>
-                <Text>Edvard Hill</Text>
-                <Text>Edvard@Edvard.com</Text>
-              </View>
-            </View>
-            <View style={styles.singlePostContainer}>
-              <Image
-                style={styles.avatarImage}
-                source={require("../assets/img/Letov1.png")}
-                resizeMode="cover"
-              ></Image>
-              <View style={styles.infoUserBlock}>
-                <Text>Egor Letov</Text>
-                <Text>Letov@Letov.com</Text>
-              </View>
-            </View>
-            <View style={styles.singlePostContainer}>
-              <Image
-                style={styles.avatarImage}
-                source={require("../assets/img/BG.jpg")}
-                resizeMode="cover"
-              ></Image>
-              <View style={styles.infoUserBlock}>
-                <Text>Natali Romanova</Text>
-                <Text>email@example.com</Text>
-              </View>
-            </View>
-            <View style={styles.singlePostContainer}>
-              <Image
-                style={styles.avatarImage}
-                source={require("../assets/img/edvard.png")}
-                resizeMode="cover"
-              ></Image>
-              <View style={styles.infoUserBlock}>
-                <Text>Edvard Hill</Text>
-                <Text>Edvard@Edvard.com</Text>
-              </View>
-            </View>
-            <View style={styles.singlePostContainer}>
-              <Image
-                style={styles.avatarImage}
-                source={require("../assets/img/Letov1.png")}
-                resizeMode="cover"
-              ></Image>
-              <View style={styles.infoUserBlock}>
-                <Text>Egor Letov</Text>
-                <Text>Letov@Letov.com</Text>
-              </View>
-            </View> */}
-          {/* </View> */}
         </View>
-        <View style={styles.footer}>
-          <SvgToolbarGrid />
 
-          <TouchableOpacity
-            onPress={() => {
-              alert("ADD SOME");
+        <View style={{ marginBottom: 34 }}>
+          <Image
+            style={styles.PostPicture}
+            source={require("../assets/img/photoForPost.png")}
+            resizeMode="stretch"
+          ></Image>
+          <Text>Ліс</Text>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              aliginItems: "center",
             }}
           >
-            <SvgBtnAddPlus />
-          </TouchableOpacity>
-          <SvgToolbarUser />
+            <View
+              style={{
+                flexDirection: "row",
+                // justifyContent: "center",
+                aliginItems: "center",
+              }}
+            >
+              <Feather name="message-circle" size={18} color="#BDBDBD" />
+              <Text>0</Text>
+            </View>
+            <View
+              style={{
+                flexDirection: "row",
+                // justifyContent: "center",
+                aliginItems: "center",
+              }}
+            >
+              <Feather name="map-pin" size={24} color="#BDBDBD" />
+              <Text>Ivano-Frankivs'k Region, Ukraine</Text>
+            </View>
+          </View>
+        </View>
+        <View style={styles.container1}>
+          <MapView
+            style={styles.mapStyle}
+            region={{
+              latitude: 37.78825,
+              longitude: -122.4324,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,
+            }}
+            mapType="standard"
+            minZoomLevel={15}
+            // onMapReady={() => console.log("Map is ready")}
+            // onRegionChange={() => console.log("Region change")}
+          >
+            <Marker
+              title="I am here"
+              coordinate={{ latitude: 37.78825, longitude: -122.4324 }}
+              description="Hello"
+            />
+          </MapView>
         </View>
       </ScrollView>
     </SafeAreaView>
   );
 };
 const styles = StyleSheet.create({
-  safeAreaView:{
-        backgroundColor: "white",
-        flex: 1,
-      },
+  safeAreaView: {
+    backgroundColor: "white",
+    flex: 1,
+    paddingHorizontal: 16,
+    paddingVertical: 32,
+  },
   scrollViewContent: {
     backgroundColor: "white",
-    justifyContent: "space-between",
+    // justifyContent: "space-between",
     paddingHorizontal: 16,
-    flex: 1,
+    // flex: 1,
   },
   userListContainer: {
     backgroundColor: "white",
-
     flex: 1,
-
-    // // justifyContent: "space-between",
-    // paddingHorizontal: 16,
   },
 
-  headerContainer: {
-    backgroundColor: "white",
-    position: "relative",
-    alignItems: "center",
-    paddingHorizontal: 49,
-    paddingVertical: 11,
-    borderBottomWidth: 1, // Border bottom width
-    borderBottomColor: "rgba(0, 0, 0, 0.30)",
-    marginBottom: 32,
-  },
-  headerTitle: {
-    fontFamily: "Roboto",
-    fontSize: 17,
-    fontWeight: 500,
-    lineHeight: 22,
-    letterSpacing: -0.41,
-    textAlign: "center",
-  },
-  svgLogOut: {
-    position: "absolute",
-    top: "50%",
-    right: 0,
-  },
   postsContainer: {
-    backgroundColor: "white", // Background color
+    backgroundColor: "white",
     paddingTop: 32,
   },
   singlePostContainer: { flexDirection: "row", marginBottom: 8 },
   avatarImage: {
     width: 60,
     height: 60,
+    borderRadius: 16,
   },
   infoUserBlock: {
     justifyContent: "center",
@@ -256,10 +150,25 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     paddingTop: 9,
-    paddingBottom:22,
+    paddingBottom: 22,
     borderTopWidth: 1, // Border bottom width
     borderTopColor: "rgba(0, 0, 0, 0.30)",
   },
-  
+  PostPicture: {
+    width: 343,
+    height: 240,
+  },
+  container1: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  mapStyle: {
+    // width: Dimensions.get("window").width,
+    width: 343,
+    // height: Dimensions.get("window").height,
+    height: 240
+  },
 });
 export default PostsScreen;

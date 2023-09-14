@@ -1,11 +1,17 @@
+import "react-native-gesture-handler";
+
 import React from "react";
 
-import { useFonts } from "expo-font"; 
+import { NavigationContainer } from "@react-navigation/native";
+import { useFonts } from "expo-font";
 
-import RegistrationScreen from "./Screens/RegistrationScreen.jsx"
+import { navigationRef } from "./midleware/RootNavigation.js";
+import RegistrationScreen from "./Screens/RegistrationScreen.jsx";
 import { ImageBackground, StyleSheet, View } from "react-native";
 import LoginScreen from "./Screens/LoginScreen.jsx";
 import PostsScreen from "./Screens/PostsScreen.jsx";
+import Home from "./Screens/Home.jsx";
+import CreateStackNavigator from "./components/createStackNavigator.jsx";
 // const image = require("./assets/img/BG.jpg");
 
 export default App = () => {
@@ -15,20 +21,8 @@ export default App = () => {
   if (!fontsLoaded) {
     return null;
   }
-  return (
-    <>
-      <ImageBackground
-        source={require("./assets/img/BG.jpg")}
-        resizeMode="cover"
-        style={styles.image}
-      >
-        {/* <RegistrationScreen style={styles.regScreen} /> */}
-        <LoginScreen/>
-        {/* <PostsScreen/> */}
-      </ImageBackground>
-    </>
-  );
-}
+  return <CreateStackNavigator></CreateStackNavigator>;
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -47,5 +41,4 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     // flex: 1,
   },
-}); 
-
+});

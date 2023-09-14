@@ -8,11 +8,14 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   Keyboard,
+  ImageBackground,
 } from "react-native";
-
+import * as RootNavigation from "../midleware/RootNavigation.js";
+import { useNavigation } from "@react-navigation/native";
 
 import { Formik } from "formik";
 import * as Yup from "yup";
+// import ImgBackground from "../components/ImgBackground.jsx";
 
 const LoginSchema = Yup.object().shape({
   
@@ -34,9 +37,15 @@ const LoginScreen = () => {
     // Implement your sign-in navigation logic here
     // For example, you can use React Navigation to navigate to the sign-in screen
     // navigation.navigate("LoginScreen");
+     RootNavigation.navigate("RegistrationScreen");
   };
   return (
     <>
+      <ImageBackground
+        source={require("../assets/img/BG.jpg")}
+        resizeMode="cover"
+        style={styles.image}
+      ></ImageBackground>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
@@ -57,8 +66,9 @@ const LoginScreen = () => {
               validationSchema={LoginSchema}
               onSubmit={(values, { resetForm }) => {
                 console.log(values);
-                alert(` Name:${values.name},  Password: ${values.password}`);
+                alert(` Name:${values.email},  Password: ${values.password}`);
                 resetForm();
+                RootNavigation.navigate("Home");
               }}
             >
               {({
@@ -202,6 +212,7 @@ const styles = StyleSheet.create({
     height: 50,
     marginBottom: 43,
     padding: 16,
+    
 
     borderWidth: 1,
     borderRadius: 8,
@@ -267,6 +278,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 18.75,
     alignContent: "center",
+  },
+  image: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "flex-end",
   },
 });
 export default LoginScreen;

@@ -9,11 +9,14 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Alert,
+  ImageBackground,
 } from "react-native";
-
+import * as RootNavigation from "../midleware/RootNavigation.js";
+import { useNavigation } from "@react-navigation/native";
 import SvgAdd from "../components/SvgAdd";
 import { Formik } from "formik";
 import * as Yup from "yup";
+
 
 const RegistationSchema = Yup.object().shape({
   name: Yup.string()
@@ -37,10 +40,10 @@ const RegistrationScreen = () => {
   // const [password, setPassword] = useState("");
   // const [showPassword, setShowPassword] = useState(false);
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
-
+  const navigation = useNavigation();
   const svg = require("../assets/svg/add.svg");
   const handleSignInPress = ({resetForm}) => {
-    
+    navigation.navigate("Home");
     // Implement your sign-in navigation logic here
     // For example, you can use React Navigation to navigate to the sign-in screen
     // navigation.navigate("LoginScreen");
@@ -48,6 +51,12 @@ const RegistrationScreen = () => {
 
   return (
     <>
+      <ImageBackground
+        source={require("../assets/img/BG.jpg")}
+        resizeMode="cover"
+        style={styles.image}
+      ></ImageBackground>
+        
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
@@ -70,12 +79,14 @@ const RegistrationScreen = () => {
                 showPassword: false,
               }}
               validationSchema={RegistationSchema}
-              onSubmit={(values, {resetForm}) => {
+              onSubmit={(values, { resetForm }) => {
                 console.log(values);
-                alert(
-                  ` Name:${values.name}, User email: ${values.email}, Password: ${values.password}`
-            );
-          resetForm();
+                // alert(
+                //   ` Name:${values.name}, User email: ${values.email}, Password: ${values.password}`
+                // );
+                resetForm();
+                RootNavigation.navigate("Home");
+
               }}
             >
               {({
@@ -167,7 +178,12 @@ const RegistrationScreen = () => {
                 </View>
               )}
             </Formik>
-            <TouchableOpacity onPress={handleSignInPress}>
+            <TouchableOpacity
+              onPress={
+                () => RootNavigation.navigate("LoginScreen")
+                // handleSignInPress
+              }
+            >
               <Text style={styles.linkText}>Вже є акаунт? Увійти</Text>
             </TouchableOpacity>
             {/* </View> */}
@@ -299,6 +315,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 18.75,
     alignContent: "center",
+  },
+  image: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "flex-end",
   },
 });
 
